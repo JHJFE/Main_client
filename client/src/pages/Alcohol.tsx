@@ -97,7 +97,7 @@ const Alcohol = () => {
     };
 
     fetchData();
-  }, [size, currentPage, currentTab, sortBy]);
+  }, [currentTab, sortBy, currentPage]);
 
   const handleClickTab = (idx: number): void => {
     setCurrentTab(idx);
