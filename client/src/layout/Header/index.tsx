@@ -24,12 +24,13 @@ const LogoContainer = styled.header<IHeaderContainerProps>`
   left: 10%;
   width: 100%;
   height: 120px;
+  color: ${({ theme }) => theme.colors.fontColor};
 
   & div.tag {
     padding-top: ${({ hovering }) => (hovering === "true" ? "30px" : "22px")};
     transition: all 0.3s ease-out;
 
-    filter: drop-shadow(2px 4px 2px black);
+    filter: drop-shadow(2px 4px 2px rgba(8, 8, 8, 0.5));
     &:hover {
       cursor: pointer;
     }
@@ -45,6 +46,9 @@ const LogoContainer = styled.header<IHeaderContainerProps>`
       width: 75%;
       padding-top: 0px;
     }
+  }
+  @media screen and (max-width: 767px) {
+    height: 50px;
   }
 `;
 
@@ -92,7 +96,7 @@ const WhiteMainlogo = styled(Mainlogo)<IHeaderContainerProps>`
             fill: #a84448;
           `
         : css`
-         fill: ${pathname === "/" ? "rgba(245, 245, 245, 1)" : "#a84448"}; rgba(245, 245, 245, 1)" : "color: #222222"
+            fill: ${pathname === "/" ? "rgba(245, 245, 245, 1)" : "#a84448"}; rgba(245, 245, 245, 1)" : "color: #222222"
           `}
     transition: all 0.5s ease-out;
 
@@ -113,23 +117,22 @@ const Ulist = styled.div<IHeaderContainerProps>`
   padding-right: 5%;
   width: 110%;
   transition: all 0.3s ease-out;
-  font-family: Cafe24Anemone, sans-serif, Arial;
+  font-weight: bold;
 
-  filter: drop-shadow(2px 2px 1px grey);
+  filter: drop-shadow(2px 2px 1px #ccc);
 
   padding-top: ${({ hovering }) => (hovering === "true" ? "20px" : "30px")};
   & ul {
     width: 100%;
     display: flex;
     flex-direction: column;
-    font-weight: bold;
-
     font-size: ${({ hovering }) => (hovering === "true" ? "18px" : "21px")};
     transition: all 0.5s ease-out;
   }
 
   & ul {
     & li {
+      height: 20px;
       padding-top: 4%;
       font-size: 14px;
       font-weight: 400;
@@ -206,18 +209,28 @@ const slideOut = keyframes`
 `;
 const AccordionMenu = styled.div<IHeaderContainerProps>`
   display: none;
+
+  .li_padding {
+    padding: 0.8rem 1rem;
+  }
   @media screen and (max-width: 767px) {
+    margin-right: 2rem;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
     font-family: WanjuRegular, sans-serif, Arial;
-    padding: 13px 10px;
+    padding: 13px 0;
+    text-align: right;
     border-radius: 5px;
     font-size: 16px;
     color: #a84448;
     background-color: none;
-    height: 280px;
   }
   & div.onclick {
+    text-align: right;
+    padding: 0;
+    padding-right: 12px;
+    padding-bottom: 0.5rem;
     filter: drop-shadow(2px 2px 1px rgba(8, 8, 8, 0.5));
   }
 `;
@@ -386,7 +399,11 @@ const Header: React.FC = () => {
 
             <AccordionMenu hovering={(isHover || false).toString()} y={y}>
               {isAccordionOpen ? (
-                <div className="onclick" onClick={toggleAccordionMenu}>
+                <div
+                  onBlur={() => setIsAccordionOpen(!isAccordionOpen)}
+                  className="onclick"
+                  onClick={toggleAccordionMenu}
+                >
                   Menu
                 </div>
               ) : (
@@ -397,6 +414,7 @@ const Header: React.FC = () => {
               {isAccordionOpen && (
                 <>
                   <AccordionMenuItem
+                    className="li_padding"
                     hovering={(isHover || false).toString()}
                     y={y}
                     onClick={() => {
@@ -407,6 +425,7 @@ const Header: React.FC = () => {
                     주류 리스트
                   </AccordionMenuItem>
                   <AccordionMenuItem
+                    className="li_padding"
                     hovering={(isHover || false).toString()}
                     y={y}
                     onClick={() => {
@@ -417,6 +436,7 @@ const Header: React.FC = () => {
                     장바구니
                   </AccordionMenuItem>
                   <AccordionMenuItem
+                    className="li_padding"
                     hovering={(isHover || false).toString()}
                     y={y}
                     onClick={() => {
@@ -427,6 +447,7 @@ const Header: React.FC = () => {
                     찜
                   </AccordionMenuItem>
                   <AccordionMenuItem
+                    className="li_padding"
                     hovering={(isHover || false).toString()}
                     y={y}
                     onClick={() => {
@@ -437,6 +458,7 @@ const Header: React.FC = () => {
                     주문 내역
                   </AccordionMenuItem>
                   <AccordionMenuItem
+                    className="li_padding"
                     hovering={(isHover || false).toString()}
                     y={y}
                     onClick={() => {
@@ -447,6 +469,7 @@ const Header: React.FC = () => {
                     개인 정보 수정
                   </AccordionMenuItem>
                   <AccordionMenuItem
+                    className="li_padding"
                     hovering={(isHover || false).toString()}
                     y={y}
                     onClick={() => {
@@ -457,6 +480,7 @@ const Header: React.FC = () => {
                     자주 묻는 질문
                   </AccordionMenuItem>
                   <AccordionMenuItem
+                    className="li_padding"
                     hovering={(isHover || false).toString()}
                     y={y}
                     onClick={() => {
