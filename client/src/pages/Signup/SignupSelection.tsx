@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { SiNaver } from "react-icons/si";
+import { TfiFacebook } from "react-icons/tfi";
 import { FcGoogle } from "react-icons/fc";
 import { RiKakaoTalkFill } from "react-icons/ri";
 const url = `${process.env.REACT_APP_API_URL}`;
@@ -67,7 +67,7 @@ const OAuthSignUpBox = styled.div<TypeProps>`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: ${({ type }) => (type === "google" ? "white" : type === "naver" ? "#03C75A" : "#ffeb00")};
+  background-color: ${({ type }) => (type === "google" ? "white" : type === "facebook" ? "#3b5998" : "#ffeb00")};
   color: ${({ type }) => (type === "google" || type === "kakao" ? "black" : "white")};
   border: 1px solid ${({ theme }) => theme.colors.border};
   .desc {
@@ -104,14 +104,16 @@ const SignupSelection = () => {
   };
   const googleOAuthHandler = () => {
     //오어스 구글 인증링크 이동
-    window.location.assign(`${url}/oauth2/authorization/google`);
+    window.location.assign(`${url}/oauth2/authorization/google%22%3E%EA%B5%AC%EA%B8%80%EB%A1%9C`);
   };
-  const naverOAuthHandler = () => {
-    //오어스  인증링크로 이동
-    window.location.assign(`${url}/oauth2/authorization/naver`);
+  const facebookOAuthHandler = () => {
+    //오어스 네이버 인증링크로 이동
+    window.location.assign(
+      `${url}/oauth2/authorization/facebook%22%3E%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%B6%81%EC%9C%BC%EB%A1%9C `,
+    );
   };
   const kakaoOAuthHandler = () => {
-    window.location.assign(`${url}/oauth2/authorization/kakao`);
+    window.location.assign(`${url}/oauth2/authorization/kakao%22%3E%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A1%9C`);
   };
   return (
     <Container>
@@ -124,11 +126,11 @@ const SignupSelection = () => {
           </OAuthIconContainer>
           <div className="desc">구글로 회원가입</div>
         </OAuthSignUpBox>
-        <OAuthSignUpBox onClick={naverOAuthHandler} type="naver">
+        <OAuthSignUpBox onClick={facebookOAuthHandler} type="facebook">
           <OAuthIconContainer>
-            <SiNaver size="25" color="white" />
+            <TfiFacebook size="30" color="white" />
           </OAuthIconContainer>
-          <div className="desc">네이버로 회원가입</div>
+          <div className="desc">페이스북으로 회원가입</div>
         </OAuthSignUpBox>
         <OAuthSignUpBox onClick={kakaoOAuthHandler} type="kakao">
           <OAuthIconContainer>
