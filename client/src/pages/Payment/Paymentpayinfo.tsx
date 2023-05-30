@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ItemOrder } from "../../types/AlcholInterfaces";
 import DatePicker from "react-datepicker";
-import { useState } from "react";
+import { useState, memo, useCallback } from "react";
 import { useSelector } from "react-redux";
 import Place from "@pages/Place";
 import { useDispatch } from "react-redux";
@@ -28,7 +28,7 @@ export interface PayinfoProps {
   onDateChange: (date: Date | null) => void;
 }
 
-export default function Payinfo({ onDateChange }: PayinfoProps) {
+function Paymentpayinfo({ onDateChange }: PayinfoProps) {
   const location = useLocation();
   const items = location.state ? location.state.items : [];
   const navigate = useNavigate();
@@ -48,25 +48,28 @@ export default function Payinfo({ onDateChange }: PayinfoProps) {
   const selectdata = useSelector((state: stateProps) => state.markerState);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handlePickDateClick = () => {
+  const handlePickDateClick = useCallback(() => {
     setIsCalendarOpen(true);
-  };
+  }, []);
 
-  const handleDateChange = (date: Date | null) => {
-    const today = new Date();
-    if (date && date < today) {
-      setIsModalOpen(true);
-    } else {
-      setSelectedDate(date);
-      setIsCalendarOpen(false);
-      onDateChange(date);
-      dispatch(setDate(date ? date.getTime() : null));
-    }
-  };
+  const handleDateChange = useCallback(
+    (date: Date | null) => {
+      const today = new Date();
+      if (date && date < today) {
+        setIsModalOpen(true);
+      } else {
+        setSelectedDate(date);
+        setIsCalendarOpen(false);
+        onDateChange(date);
+        dispatch(setDate(date ? date.getTime() : null));
+      }
+    },
+    [onDateChange, dispatch],
+  );
 
-  const handlemapClick = () => {
-    navigate("/place", { state: { items: items } });
-  };
+  const handlemapClick = useCallback(() => {
+    navigate("/place", { state: { items: items, selectedDate: selectedDate } });
+  }, [items, selectedDate, navigate]);
 
   return (
     <Payinfostyle>
@@ -143,6 +146,8 @@ export default function Payinfo({ onDateChange }: PayinfoProps) {
   );
 }
 
+export default memo(Paymentpayinfo);
+
 const Payinfostyle = styled.div`
   display: flex;
   flex-direction: column;
@@ -182,6 +187,9 @@ const Payinfostyle = styled.div`
     justify-content: space-around;
     flex-direction: row;
     align-items: center;
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
   }
   & div.totalQ {
     display: flex;
@@ -238,6 +246,9 @@ const Payinfostyle = styled.div`
     flex-direction: row;
     align-items: center;
     height: 50px;
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+    }
   }
 
   & div.pickupdate {
@@ -287,6 +298,9 @@ const Payinfostyle = styled.div`
     align-items: center;
     justify-content: flex-start;
     margin-top: 100px;
+    @media screen and (max-width: 767px) {
+      margin-top: 0px;
+    }
   }
   & div.thirdline {
     display: flex;
@@ -295,6 +309,9 @@ const Payinfostyle = styled.div`
     align-items: center;
     height: 700px;
     width: 100%;
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+    }
   }
   & div.place {
     display: flex;
@@ -302,6 +319,10 @@ const Payinfostyle = styled.div`
     align-items: center;
     width: 40%;
     height: 100%;
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+      width: 100%;
+    }
   }
   & div.pickupplace {
     display: flex;
@@ -316,6 +337,11 @@ const Payinfostyle = styled.div`
     border-left: 1px solid rgba(60, 60, 60, 0.1);
     border-right: 1px solid rgba(60, 60, 60, 0.1);
     font-weight: bold;
+    @media screen and (max-width: 767px) {
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+    }
   }
 
   & div.placeinfo {
@@ -325,6 +351,10 @@ const Payinfostyle = styled.div`
     flex-direction: column;
     width: 80%;
     height: 100%;
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+      width: 100%;
+    }
   }
 
   & div.place1 {
@@ -442,11 +472,20 @@ const Payinfostyle = styled.div`
     align-items: center;
     width: 60%;
     border: 1px solid rgba(60, 60, 60, 0.1);
+    @media screen and (max-width: 767px) {
+      height: 400px;
+      width: 100%;
+    }
     & section {
       width: 100%;
       max-height: 690px;
       margin-top: 10px;
       overflow: hidden;
+
+      @media screen and (max-width: 767px) {
+        margin-top: 0;
+        max-height: 400px;
+      }
     }
   }
   & div.calender {

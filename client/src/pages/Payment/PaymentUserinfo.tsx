@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { UserProps } from "../../types/AlcholInterfaces";
+import { memo } from "react";
 
 export interface ChildComponentProps {
   userInfo: UserProps;
@@ -12,7 +13,7 @@ export type UserdataType = {
   phone: string;
   email: string;
 };
-export default function PaymnetUserInfo({ userInfo }: ChildComponentProps) {
+function PaymnetUserInfo({ userInfo }: ChildComponentProps) {
   return (
     <BuyerInfo>
       <div className="userinfo">
@@ -36,6 +37,8 @@ export default function PaymnetUserInfo({ userInfo }: ChildComponentProps) {
   );
 }
 
+export default memo(PaymnetUserInfo);
+
 const BuyerInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -43,7 +46,9 @@ const BuyerInfo = styled.div`
   align-items: center;
   width: 100%;
   ${({ theme }) => theme.common.flexCenterCol};
-
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+  }
   & div.userinfo {
     width: 80%;
   }
@@ -90,29 +95,40 @@ const BuyerInfo = styled.div`
   & div.buyer {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     font-size: 18px;
     width: 13%;
     padding-right: 2%;
     border-right: 1px solid rgba(60, 60, 60, 0.5);
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+    }
   }
   & div.email {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     font-size: 18px;
     width: 13%;
     padding-right: 2%;
     border-right: 1px solid rgba(60, 60, 60, 0.5);
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+    }
   }
   & div.phone {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     font-size: 18px;
     width: 13%;
     padding-right: 2%;
     border-right: 1px solid rgba(60, 60, 60, 0.5);
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+      width: 13.3%;
+      padding-right: 0%;
+    }
   }
   & div.username {
     display: flex;

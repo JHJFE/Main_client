@@ -76,7 +76,7 @@ const FindEmail = () => {
       {showAlert ? <Alert text={alertMessage} onClickOk={() => setShowAlert(false)} /> : null}
       <ContentsContainer>
         <TopContainer>
-          <Title fontSize="28px" fontWeight="500">
+          <Title className="label" fontSize="28px" fontWeight="500">
             이메일 찾기
           </Title>
         </TopContainer>
@@ -137,18 +137,30 @@ const Container = styled.div`
   color: ${({ theme }) => theme.colors.fontColor};
   ${({ theme }) => theme.common.flexCenterCol};
   gap: 20px;
+  @media screen and (max-width: 768px) {
+    .label {
+      display: none;
+    }
+  }
 `;
 const ContentsContainer = styled.div`
   ${({ theme }) => theme.common.flexCenterCol};
   gap: 50px;
   max-width: 600px;
-  width: 95%;
+  width: 100%;
+  padding: 0 25px;
   position: absolute;
   top: 25%;
+  @media screen and (max-width: 768px) {
+    top: 15%;
+  }
 `;
 const Title = styled.div<TitleProps>`
   font-size: ${({ fontSize }) => fontSize};
   font-weight: ${({ fontWeight }) => fontWeight};
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 const TopContainer = styled.div`
   display: flex;
@@ -167,6 +179,11 @@ const MiddleContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   background-color: white;
+  @media screen and (max-width: 768px) {
+    background-color: inherit;
+    border: none;
+    padding: 0;
+  }
   gap: 30px;
   width: 100%;
   .title {
@@ -203,6 +220,9 @@ const InputContainer = styled.div`
       padding: 10px 10px;
       font-size: 16px;
       width: 100%;
+      @media screen and (max-width: 768px) {
+        font-size: 14px;
+      }
     }
   }
   .flex-row {
