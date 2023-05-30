@@ -104,16 +104,14 @@ const SignupSelection = () => {
   };
   const googleOAuthHandler = () => {
     //오어스 구글 인증링크 이동
-    window.location.assign(`${url}/oauth2/authorization/google%22%3E%EA%B5%AC%EA%B8%80%EB%A1%9C`);
+    window.location.assign(`${url}/oauth2/authorization/google`);
   };
   const facebookOAuthHandler = () => {
     //오어스 네이버 인증링크로 이동
-    window.location.assign(
-      `${url}/oauth2/authorization/facebook%22%3E%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%B6%81%EC%9C%BC%EB%A1%9C `,
-    );
+    window.location.assign(`${url}/oauth2/authorization/facebook`);
   };
   const kakaoOAuthHandler = () => {
-    window.location.assign(`${url}/oauth2/authorization/kakao%22%3E%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A1%9C`);
+    window.location.assign(`${url}/oauth2/authorization/kakao`);
   };
   return (
     <Container>
